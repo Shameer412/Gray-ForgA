@@ -36,8 +36,8 @@ const Header = () => {
       animation: 'shake'
     },
     { 
-      name: 'Why Choose Us', 
-      href: '/why-us',
+      name: 'Our Promise', 
+      href: '/our-promise',
       animation: 'tada'
     },
     { 

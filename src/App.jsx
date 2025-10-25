@@ -4,6 +4,7 @@ import Home from "./components/pages/Home";
 import Contact from "./components/pages/ContactUs";
 import About from "./components/pages/About";
 import Service from "./components/pages/Services";
+import OurPromise from "./components/pages/OurPromise";
 const App = () => {
   return (
    
@@ -15,6 +16,7 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About/>} />
           <Route path="/services" element={<Service/>} />
+          <Route path="/our-promise" element={<OurPromise/>} />
       </Routes>
     </Router>
   );
