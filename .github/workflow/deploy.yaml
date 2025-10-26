@@ -1,0 +1,48 @@
+name: Deploy React App to Hostinger
+
+on:
+  push:
+    branches:
+      - main  # Ya 'master' (aapki branch ka naam)
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Code download karega
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Node.js setup karega
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Apna Node.js version daalein
+          cache: 'npm'
+
+      # 3. Dependencies install karega
+      - name: Install dependencies
+        run: npm install
+
+      # 4. React app ko build karega
+      - name: Build React app
+        run: npm run build
+
+      # 5. Hostinger par deploy karega (FTP ke zariye)
+      - name: 🚀 Deploy to Hostinger using FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          
+          # Yeh details humne aapki screenshot se li thin
+          port: 21
+          protocol: ftp 
+          
+          # Yahan 'build' ya 'dist' likhein (jo aapka folder banta hai)
+          local-dir: ./dist/ 
+          
+          # Hostinger ka folder
+          server-dir: ./public_html/
