@@ -30,16 +30,16 @@ const Header = () => {
       href: '/about',
       animation: 'pulse'
     },
-    { 
-      name: 'Services', 
-      href: '/services',
-      animation: 'shake'
-    },
-    { 
-      name: 'Our Promise', 
-      href: '/our-promise',
-      animation: 'tada'
-    },
+    // { 
+    //   name: 'Services', 
+    //   href: '/services',
+    //   animation: 'shake'
+    // },
+    // { 
+    //   name: 'Our Promise', 
+    //   href: '/our-promise',
+    //   animation: 'tada'
+    // },
     { 
       name: 'Contact', 
       href: '/contact', // Route for Contact Us
