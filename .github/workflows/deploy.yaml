@@ -46,3 +46,4 @@ jobs:
           
           # Hostinger ka folder
           server-dir: ./public_html/
+          cleanup: true
