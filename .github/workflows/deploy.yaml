@@ -3,7 +3,7 @@ name: Deploy React App to Hostinger
 on:
   push:
     branches:
-      - main  # Ya 'master' (aapki branch ka naam)
+      - main
 
 jobs:
   build-and-deploy:
@@ -14,11 +14,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2. Node.js setup karega
+      # 2. Node.js 20 setup karega
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20' # Apna Node.js version daalein
+          node-version: '20'
           cache: 'npm'
 
       # 3. Dependencies install karega
@@ -33,20 +33,18 @@ jobs:
       - name: 🚀 Deploy to Hostinger using FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
-          # --- Yeh saari lines 'with:' ke andar ek hi alignment mein honi chahiye ---
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           
-          # Yeh details humne aapki screenshot se li thin
           port: 21
           protocol: ftp 
           
-          # Yahan 'build' ya 'dist' likhein (jo aapka folder banta hai)
+          # Source: ./dist/ (Vite build folder)
           local-dir: ./dist/ 
           
-          # Hostinger ka folder (Ab path sahi hai)
-          server-dir: ./domains/grayforgedigital.com/public_html/
+          # Destination: ./ (Current directory jahan FTP user login karta hai)
+          server-dir: ./
           
-          # Yeh server ko saaf karega
+          # Server ko poori tarah saaf karega
           dangerous-clean-slate: true
