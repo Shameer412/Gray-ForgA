@@ -33,6 +33,7 @@ jobs:
       - name: 🚀 Deploy to Hostinger using FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
+          # --- Yeh saari lines 'with:' ke andar ek hi alignment mein honi chahiye ---
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
@@ -44,6 +45,8 @@ jobs:
           # Yahan 'build' ya 'dist' likhein (jo aapka folder banta hai)
           local-dir: ./dist/ 
           
-          # Hostinger ka folder
-          server-dir: ./public_html/
+          # Hostinger ka folder (Ab path sahi hai)
+          server-dir: ./domains/grayforgedigital.com/public_html/
+          
+          # Yeh server ko saaf karega
           dangerous-clean-slate: true
