@@ -1,4 +1,4 @@
-name: Deploy React App to Hostinger (lftp)
+name: Deploy React App to Hostinger (Forceful lftp)
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20' # Vite ke liye zaroori
+          node-version: '20'
           cache: 'npm'
 
       # 3. Dependencies install karega
@@ -29,16 +29,36 @@ jobs:
       - name: Build React app
         run: npm run build
 
-      # 5. lftp install karega
+      # 5. Ek test file banayega (permission check karne ke liye)
+      - name: Create test file
+        run: echo "GitHub Actions Write Test" > ./dist/github-action-test.txt
+
+      # 6. lftp install karega
       - name: Install lftp
         run: sudo apt-get update && sudo apt-get install lftp -y
 
-      # 6. Deploy karega (Sahi path ke saath)
-      - name: Deploy to Hostinger using lftp
+      # 7. Deploy karega (Secure Mode ke Saath)
+      - name: Deploy to Hostinger using lftp (with Write Test)
         run: |
-          # Connect, Disable SSL, Mirror local ./dist to remote ./public_html/
           lftp -c "open -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} -p 21 ${{ secrets.FTP_SERVER }}; \
-          set ftp:ssl-allow no; \
-          mirror -R -e -v ./dist ./public_html/; \
+          
+          # --- YEH HAIN ASAL CHANGES (SECURE CONNECTION) ---
+          set ftp:ssl-allow yes; \
+          set ssl:verify-certificate no; \
+          # --- ---
+          
+          set ftp:passive-mode yes; \
+          set cmd:fail-early true; \
+          
+          echo '--- Changing directory to public_html ---'; \
+          cd public_html/; \
+          
+          echo '--- Attempting to write test file... ---'; \
+          put -O . ./dist/github-action-test.txt; \
+          
+          echo '--- Write test SUCCESSFUL. Starting main deploy... ---'; \
+          mirror -R -e -v ./dist ./; \
+          
+          echo '--- Deploy FINISHED. Removing test file... ---'; \
+          rm github-action-test.txt; \
           quit"
-
