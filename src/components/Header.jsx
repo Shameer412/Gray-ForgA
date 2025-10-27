@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import logo from "../assets/logo1.png";
 // Icons
 import { FaCog } from 'react-icons/fa';
 import { FiPhone, FiMail, FiMenu, FiX } from 'react-icons/fi';
@@ -82,8 +82,7 @@ const Header = () => {
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2 group">
-              <FaCog className="h-8 w-8 text-blue-600 group-hover:rotate-180 transition-transform duration-500" />
-              <span className="text-2xl font-bold text-gray-800 tracking-wide group-hover:text-blue-600 transition-colors duration-300">Gray Forge <span className="font-light">Digital</span></span>
+              <img src={logo} alt="Gray Forge Digital Logo" className="h-[160px] w-auto transition-transform duration-300 group-hover:scale-105" />
             </Link>
 
             {/* Desktop Navigation */}

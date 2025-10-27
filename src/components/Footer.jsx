@@ -103,15 +103,15 @@ const Footer = () => {
             <div className="space-y-4 mb-6">
               <div className="flex items-center gap-3">
                 <FaMapMarkerAlt className="text-blue-400" size={16} />
-                <span className="text-gray-400 text-sm">123 Tech Street, San Francisco</span>
+                <span className="text-gray-400 text-sm">Shahkargarh,Pakistan</span>
               </div>
               <div className="flex items-center gap-3">
                 <FaPhone className="text-green-400" size={16} />
-                <span className="text-gray-400 text-sm">+1 (555) 123-4567</span>
+                <span className="text-gray-400 text-sm">+92 (344) 469-5057</span>
               </div>
               <div className="flex items-center gap-3">
                 <FaEnvelope className="text-purple-400" size={16} />
-                <span className="text-gray-400 text-sm">hello@techagency.com</span>
+                <span className="text-gray-400 text-sm">hello@grayforgedigital.com</span>
               </div>
             </div>
 

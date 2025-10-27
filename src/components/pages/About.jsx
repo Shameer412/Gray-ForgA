@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
 
+
 // Icons for Mission Cards
 const EarIcon = () => (
   <svg className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 text-blue-600 group-hover:text-cyan-600 transition-colors duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>

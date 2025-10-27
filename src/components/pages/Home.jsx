@@ -16,7 +16,7 @@ const Home = () => {
     <CoreServices />
     <WhyChooseUs />
    <ClosingBanner />
-    {/* <Footer /> */}
+    <Footer />
     </>
   )
 }
