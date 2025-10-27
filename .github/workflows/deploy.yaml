@@ -1,9 +1,9 @@
-name: Deploy React App to Hostinger
+name: Deploy React App to Hostinger (lftp)
 
 on:
   push:
     branches:
-      - main  # Ya 'master' (aapki branch ka naam)
+      - main
 
 jobs:
   build-and-deploy:
@@ -14,11 +14,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2. Node.js setup karega
+      # 2. Node.js 20 setup karega
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20' # Apna Node.js version daalein
+          node-version: '20' # Vite ke liye zaroori
           cache: 'npm'
 
       # 3. Dependencies install karega
@@ -29,24 +29,15 @@ jobs:
       - name: Build React app
         run: npm run build
 
-      # 5. Hostinger par deploy karega (FTP ke zariye)
-      - name: 🚀 Deploy to Hostinger using FTP
-        uses: SamKirkland/FTP-Deploy-Action@4.3.3
-        with:
-          # --- Yeh saari lines 'with:' ke andar ek hi alignment mein honi chahiye ---
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          
-          # Yeh details humne aapki screenshot se li thin
-          port: 21
-          protocol: ftp 
-          
-          # Yahan 'build' ya 'dist' likhein (jo aapka folder banta hai)
-          local-dir: ./dist/ 
-          
-          # Hostinger ka folder (Ab path sahi hai)
-          server-dir: ./public_html/
-          
-          # Yeh server ko saaf karega
-          dangerous-clean-slate: true
+      # 5. NAYA TAREEEQA: lftp se deploy karein
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install lftp -y
+
+      - name: Deploy to Hostinger using lftp
+        run: |
+          # Connect, Disable SSL, Mirror local ./dist to remote ./public_html, Quit
+          lftp -c "open -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} -p 21 ${{ secrets.FTP_SERVER }}; \
+          set ftp:ssl-allow no; \
+          mirror -R -e -v ./dist ./public_html; \
+          quit"
+
