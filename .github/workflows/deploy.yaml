@@ -42,8 +42,8 @@ jobs:
           set ftp:ssl-allow yes; \
           set ssl:verify-certificate no; \
           
-          # Fail hone par script rok dega
-          set cmd:fail-early yes; \
+          # Fail hone par script rok dega (Fix: 'yes' ki jagah 'true')
+          set cmd:fail-early true; \
           set ftp:passive-mode yes; \
           
           echo '--- Changing directory to public_html/ ---'; \
@@ -54,3 +54,4 @@ jobs:
           
           echo '--- Deploy FINISHED. ---'; \
           quit"
+
