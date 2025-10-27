@@ -48,7 +48,7 @@ jobs:
           
           echo '--- Deploying all files from ./dist to current directory ---'; \
           # Humne 'cd' command hata diya hai, kyunke naya user direct sahi folder mein land karega
-          mirror -R -e -v ./dist ./; \
+          mirror -R -e -v ./dist/ ./; \
           
           echo '--- Deploy FINISHED. ---'; \
           quit"
