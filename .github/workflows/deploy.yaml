@@ -1,4 +1,4 @@
-name: Deploy React App to Hostinger (lftp)
+name: DEBUG FTP Connection
 
 on:
   push:
@@ -6,38 +6,22 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  ftp-debug:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Code download karega
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      # 2. Node.js 20 setup karega
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20' # Vite ke liye zaroori
-          cache: 'npm'
-
-      # 3. Dependencies install karega
-      - name: Install dependencies
-        run: npm install
-
-      # 4. React app ko build karega
-      - name: Build React app
-        run: npm run build
-
-      # 5. NAYA TAREEEQA: lftp se deploy karein
       - name: Install lftp
         run: sudo apt-get update && sudo apt-get install lftp -y
 
-      - name: Deploy to Hostinger using lftp
+      - name: 🚀 Run FTP DEBUG Commands (pwd and ls)
         run: |
-          # Connect, Disable SSL, Mirror local ./dist to remote ./ (current directory)
+          echo "Connecting to ${{ secrets.FTP_SERVER }}..."
+          
           lftp -c "open -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} -p 21 ${{ secrets.FTP_SERVER }}; \
           set ftp:ssl-allow no; \
-          mirror -R -e -v ./dist ./; \
+          echo '--- Running PWD (Present Working Directory) ---'; \
+          pwd; \
+          echo '--- Running LS -LA (List All Files/Folders) ---'; \
+          ls -la; \
           quit"
 
