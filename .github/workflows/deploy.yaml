@@ -35,9 +35,9 @@ jobs:
 
       - name: Deploy to Hostinger using lftp
         run: |
-          # Connect, Disable SSL, Mirror local ./dist to remote ./public_html, Quit
+          # Connect, Disable SSL, Mirror local ./dist to remote ./ (current directory)
           lftp -c "open -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} -p 21 ${{ secrets.FTP_SERVER }}; \
           set ftp:ssl-allow no; \
-          mirror -R -e -v ./dist ./public_html; \
+          mirror -R -e -v ./dist ./; \
           quit"
 
