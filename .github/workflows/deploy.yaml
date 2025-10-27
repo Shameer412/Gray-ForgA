@@ -1,4 +1,4 @@
-name: Deploy React App to Hostinger (Forceful lftp)
+name: Deploy React App to Hostinger (MKDIR Test)
 
 on:
   push:
@@ -10,42 +10,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Code download karega
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      # 2. Node.js 20 setup karega
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      # 3. Dependencies install karega
-      - name: Install dependencies
-        run: npm install
-
-      # 4. React app ko build karega
-      - name: Build React app
-        run: npm run build
-
-      # 5. Ek test file banayega (permission check karne ke liye)
-      - name: Create test file
-        run: echo "GitHub Actions Write Test" > ./dist/github-action-test.txt
-
-      # 6. lftp install karega
+      # Sirf lftp install karega
       - name: Install lftp
         run: sudo apt-get update && sudo apt-get install lftp -y
 
-      # 7. Deploy karega (Secure Mode ke Saath)
-      - name: Deploy to Hostinger using lftp (with Write Test)
+      # Asli Test yahan hai
+      - name: Run FTP MKDIR/RMDIR Test
         run: |
           lftp -c "open -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} -p 21 ${{ secrets.FTP_SERVER }}; \
           
-          # --- YEH HAIN ASAL CHANGES (SECURE CONNECTION) ---
+          # Secure connection (jaisa FileZilla mein tha)
           set ftp:ssl-allow yes; \
           set ssl:verify-certificate no; \
-          # --- ---
           
           set ftp:passive-mode yes; \
           set cmd:fail-early true; \
@@ -53,12 +29,15 @@ jobs:
           echo '--- Changing directory to public_html ---'; \
           cd public_html/; \
           
-          echo '--- Attempting to write test file... ---'; \
-          put -O . ./dist/github-action-test.txt; \
+          echo '--- Attempting to create directory: test-dir-from-github ---'; \
+          mkdir test-dir-from-github; \
           
-          echo '--- Write test SUCCESSFUL. Starting main deploy... ---'; \
-          mirror -R -e -v ./dist ./; \
+          echo '--- MKDIR Successful. Listing files... ---'; \
+          ls -la; \
           
-          echo '--- Deploy FINISHED. Removing test file... ---'; \
-          rm github-action-test.txt; \
+          echo '--- Attempting to remove directory: test-dir-from-github ---'; \
+          rmdir test-dir-from-github; \
+          
+          echo '--- RMDIR Successful. Test complete. ---'; \
           quit"
+
