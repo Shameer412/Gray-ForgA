@@ -1,4 +1,4 @@
-name: Deploy React App to Hostinger (MKDIR Test)
+name: Deploy React App to Hostinger (MKDIR Test 2)
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install lftp -y
 
       # Asli Test yahan hai
-      - name: Run FTP MKDIR/RMDIR Test
+      - name: Run FTP MKDIR/RMDIR Test (Full Path)
         run: |
           lftp -c "open -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} -p 21 ${{ secrets.FTP_SERVER }}; \
           
@@ -23,13 +23,14 @@ jobs:
           set ftp:ssl-allow yes; \
           set ssl:verify-certificate no; \
           
+          # Syntax fix: 'true' ki jagah 'yes'
+          set cmd:fail-early yes; \
           set ftp:passive-mode yes; \
-          set cmd:fail-early true; \
           
-          echo '--- Changing directory to public_html ---'; \
-          cd public_html/; \
+          echo '--- Changing directory to FULL PATH: domains/grayforgedigital.com/public_html/ ---'; \
+          cd domains/grayforgedigital.com/public_html/; \
           
-          echo '--- Attempting to create directory: test-dir-from-github ---'; \
+          echo '--- CD Successful! Attempting to create directory: test-dir-from-github ---'; \
           mkdir test-dir-from-github; \
           
           echo '--- MKDIR Successful. Listing files... ---'; \
