@@ -1,4 +1,4 @@
-name: Deploy React App to Hostinger (MKDIR Test 2)
+name: Deploy React App to Hostinger (Final)
 
 on:
   push:
@@ -10,12 +10,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Sirf lftp install karega
+      # 1. Code download karega
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Node.js 20 setup karega
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # 3. Dependencies install karega
+      - name: Install dependencies
+        run: npm install
+
+      # 4. React app ko build karega
+      - name: Build React app
+        run: npm run build
+
+      # 5. lftp install karega
       - name: Install lftp
         run: sudo apt-get update && sudo apt-get install lftp -y
 
-      # Asli Test yahan hai
-      - name: Run FTP MKDIR/RMDIR Test (Full Path)
+      # 6. Final Deploy (Secure + Sahi Path)
+      - name: Deploy to Hostinger using lftp
         run: |
           lftp -c "open -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} -p 21 ${{ secrets.FTP_SERVER }}; \
           
@@ -23,22 +42,15 @@ jobs:
           set ftp:ssl-allow yes; \
           set ssl:verify-certificate no; \
           
-          # Syntax fix: 'true' ki jagah 'yes'
+          # Fail hone par script rok dega
           set cmd:fail-early yes; \
           set ftp:passive-mode yes; \
           
-          echo '--- Changing directory to FULL PATH: domains/grayforgedigital.com/public_html/ ---'; \
-          cd domains/grayforgedigital.com/public_html/; \
+          echo '--- Changing directory to public_html/ ---'; \
+          cd public_html/; \
           
-          echo '--- CD Successful! Attempting to create directory: test-dir-from-github ---'; \
-          mkdir test-dir-from-github; \
+          echo '--- CD Successful. Deploying all files from ./dist ---'; \
+          mirror -R -e -v ./dist ./; \
           
-          echo '--- MKDIR Successful. Listing files... ---'; \
-          ls -la; \
-          
-          echo '--- Attempting to remove directory: test-dir-from-github ---'; \
-          rmdir test-dir-from-github; \
-          
-          echo '--- RMDIR Successful. Test complete. ---'; \
+          echo '--- Deploy FINISHED. ---'; \
           quit"
-
