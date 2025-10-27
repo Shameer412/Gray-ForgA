@@ -42,16 +42,15 @@ jobs:
           set ftp:ssl-allow yes; \
           set ssl:verify-certificate no; \
           
-          # Fail hone par script rok dega (Fix: 'yes' ki jagah 'true')
+          # Fail hone par script rok dega
           set cmd:fail-early true; \
           set ftp:passive-mode yes; \
           
-          echo '--- Changing directory to public_html/ ---'; \
-          cd public_html/; \
+          echo '--- Changing directory to domains/grayforgedigital.com/public_html/ ---'; \
+          cd domains/grayforgedigital.com/public_html/; \
           
           echo '--- CD Successful. Deploying all files from ./dist ---'; \
           mirror -R -e -v ./dist ./; \
           
           echo '--- Deploy FINISHED. ---'; \
           quit"
-
