@@ -35,9 +35,9 @@ const Footer = () => {
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-lg">T</span>
+                <span className="text-white font-bold text-lg">GF</span>
               </div>
-              <span className="text-2xl font-bold">TechAgency</span>
+              <span className="text-2xl font-bold">GrayForgeDigital</span>
             </div>
             <p className="text-gray-400 mb-6 leading-relaxed">
               Transforming businesses through innovative software solutions. 
@@ -138,7 +138,7 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-gray-400 text-sm mb-4 md:mb-0">
-              © 2024 TechAgency. All rights reserved.
+              © 2025 GrayForgeDigital. All rights reserved.
             </div>
             <div className="flex space-x-6 text-sm">
               <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
