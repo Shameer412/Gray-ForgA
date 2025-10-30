@@ -64,7 +64,7 @@ const ContactUs = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Our Office</h3>
-                    <p className="text-gray-600">123 Business Street<br />San Francisco, CA 94107</p>
+                    <p className="text-gray-600">Shahkargarh,<br />Narowal</p>
                   </div>
                 </div>
 
@@ -74,7 +74,7 @@ const ContactUs = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Phone Number</h3>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
+                    <p className="text-gray-600">+92 (344) 469-5057</p>
                   </div>
                 </div>
 
@@ -84,7 +84,7 @@ const ContactUs = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Email Address</h3>
-                    <p className="text-gray-600">hello@agency.com</p>
+                    <p className="text-gray-600">hello@grayforgedigital.com</p>
                   </div>
                 </div>
 

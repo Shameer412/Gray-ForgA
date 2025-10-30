@@ -1,0 +1,55 @@
+name: Deploy React App to Hostinger (Final)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Code download karega
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Node.js 20 setup karega
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # 3. Dependencies install karega
+      - name: Install dependencies
+        run: npm install
+
+      # 4. React app ko build karega
+      - name: Build React app
+        run: npm run build
+
+      # 5. lftp install karega
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install lftp -y
+
+      # 6. Final Deploy (Naya User, Sahi Path)
+      - name: Deploy to Hostinger using lftp
+        run: |
+          lftp -c "open -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} -p 21 ${{ secrets.FTP_SERVER }}; \
+          
+          # Secure connection (jaisa FileZilla mein tha)
+          set ftp:ssl-allow yes; \
+          set ssl:verify-certificate no; \
+          
+          # Fail hone par script rok dega
+          set cmd:fail-early true; \
+          set ftp:passive-mode yes; \
+          
+          echo '--- Deploying all files from ./dist to current directory ---'; \
+          # Humne 'cd' command hata diya hai, kyunke naya user direct sahi folder mein land karega
+          mirror -R -e -v ./dist/ ./; \
+          
+          echo '--- Deploy FINISHED. ---'; \
+          quit"
+

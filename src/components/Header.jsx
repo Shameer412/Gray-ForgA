@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import logo from "../assets/logo1.png";
 // Icons
 import { FaCog } from 'react-icons/fa';
 import { FiPhone, FiMail, FiMenu, FiX } from 'react-icons/fi';
@@ -36,8 +36,8 @@ const Header = () => {
       animation: 'shake'
     },
     { 
-      name: 'Why Choose Us', 
-      href: '/why-us',
+      name: 'Our Promise', 
+      href: '/our-promise',
       animation: 'tada'
     },
     { 
@@ -69,8 +69,8 @@ const Header = () => {
       <div className="hidden md:block bg-gray-50 border-b border-gray-200">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-2">
           <div className="flex items-center space-x-6 text-xs text-gray-600">
-            <a href="tel:(123) 456-7890" className="flex items-center space-x-2 hover:text-blue-600 transition-colors duration-300"><FiPhone /><span>(123) 456-7890</span></a>
-            <a href="mailto:support@grayforgedigital.com" className="flex items-center space-x-2 hover:text-blue-600 transition-colors duration-300"><FiMail /><span>support@grayforgedigital.com</span></a>
+            <a href="tel:(123) 456-7890" className="flex items-center space-x-2 hover:text-blue-600 transition-colors duration-300"><FiPhone /><span>(+92) 344469-5057</span></a>
+            <a href="mailto:support@grayforgedigital.com" className="flex items-center space-x-2 hover:text-blue-600 transition-colors duration-300"><FiMail /><span>hello@grayforgedigital.com</span></a>
           </div>
           <Link to="/contact" className="bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 text-sm">Free Consultation</Link>
         </div>
@@ -82,8 +82,7 @@ const Header = () => {
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2 group">
-              <FaCog className="h-8 w-8 text-blue-600 group-hover:rotate-180 transition-transform duration-500" />
-              <span className="text-2xl font-bold text-gray-800 tracking-wide group-hover:text-blue-600 transition-colors duration-300">Gray Forge <span className="font-light">Digital</span></span>
+              <img src={logo} alt="Gray Forge Digital Logo" className="h-[160px] w-auto transition-transform duration-300 group-hover:scale-105" />
             </Link>
 
             {/* Desktop Navigation */}
