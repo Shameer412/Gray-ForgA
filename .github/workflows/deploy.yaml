@@ -1,13 +1,13 @@
-name: Deploy React App to Hostinger (Optimized)
+name: Deploy React App to Hostinger (Final)
 
 on:
   push:
     branches:
-      - main  # Sirf 'main' branch par push hone se chalega
+      - main
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest  # Runner machine
+    runs-on: ubuntu-latest
 
     steps:
       # 1. Code download karega
@@ -19,40 +19,39 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20'
-          cache: 'npm'  # npm dependencies ko cache karega taake 'npm install' tez ho
+          cache: 'npm'
 
       # 3. Dependencies install karega
       - name: Install dependencies
         run: npm install
 
-      # 4. React app ko build karega (dist folder banayega)
+      # 4. React app ko build karega
       - name: Build React app
         run: npm run build
 
-      # 5. Build folder ko FTP se deploy karega (Naya aur Tez Tarika)
-      - name: Deploy to Hostinger using FTP-Deploy-Action
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          # --- Server Credentials ---
-          # Yeh sab GitHub Repository Secrets se aayenge
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          port: 21
+      # 5. lftp install karega (Yeh zaroori hai)
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install lftp -y
+
+      # 6. Final Deploy (lftp ka istemal - YEH SAHI HAI)
+      - name: Deploy to Hostinger using lftp
+        run: |
+          lftp -c "open -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} -p 21 ${{ secrets.FTP_SERVER }}; \
           
-          # --- Deployment Settings ---
-          # Aapka local build folder
-          local-dir: ./dist/
+          # Secure connection
+          set ftp:ssl-allow yes; \
+          set ssl:verify-certificate no; \
           
-          # Server par kahan upload karna hai (./ ka matlab root folder)
-          server-dir: ./
+          # Settings
+          set cmd:fail-early true; \
+          set ftp:passive-mode yes; \
           
-          # Purani files ko server se delete karega (lftp -e jaisa)
-          delete: true
+          echo '--- Deploying all files from ./dist to current directory ---'; \
           
-          # --- IMPORTANT: In Files ko Delete Hone se Bachayein ---
-          exclude: |
-            **/.git*
-            **/.git*/**
-            larvel_api/**
-            api.php
+          # YEH COMMAND AAPKI FILES KO BACHAYEGA:
+          # -e purani react files ko delete karega
+          # --exclude aapki server files ko bacha lega
+          mirror -R -e -v --exclude larvel_api/ --exclude api.php ./dist/ ./; \
+          
+          echo '--- Deploy FINISHED. ---'; \
+          quit"
