@@ -15,7 +15,7 @@ const Footer = () => {
     { name: "Cloud Solutions", href: "#" },
     { name: "UI/UX Design", href: "#" },
     { name: "Mobile Apps", href: "#" },
-    { name: "AI Solutions", href: "#" }
+    { name: "AI Agents", href: "#" }
   ];
 
   const company = [
