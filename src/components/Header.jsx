@@ -69,7 +69,7 @@ const Header = () => {
       <div className="hidden md:block bg-gray-50 border-b border-gray-200">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-2">
           <div className="flex items-center space-x-6 text-xs text-gray-600">
-            <a href="tel:(123) 456-7890" className="flex items-center space-x-2 hover:text-blue-600 transition-colors duration-300"><FiPhone /><span>(+92) 344469-5057</span></a>
+            <a href="tel:(123) 456-7890" className="flex items-center space-x-2 hover:text-blue-600 transition-colors duration-300"><FiPhone /><span>(+92) 310676-2606</span></a>
             <a href="mailto:support@grayforgedigital.com" className="flex items-center space-x-2 hover:text-blue-600 transition-colors duration-300"><FiMail /><span>hello@grayforgedigital.com</span></a>
           </div>
           <Link to="/contact" className="bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 text-sm">Free Consultation</Link>
@@ -196,7 +196,7 @@ const Header = () => {
                   animation: 'slideInFromRight 0.5s ease-out forwards'
                 }}
               >
-                <a href="tel:(123) 456-7890" className="flex items-center space-x-3 hover:text-blue-600 transition-colors duration-300"><FiPhone size={20} /><span>(123) 456-7890</span></a>
+                <a href="tel:(123) 456-7890" className="flex items-center space-x-3 hover:text-blue-600 transition-colors duration-300"><FiPhone size={20} /><span>(+92) 310-6762606</span></a>
                 <a href="mailto:support@grayforgedigital.com" className="flex items-center space-x-3 hover:text-blue-600 transition-colors duration-300"><FiMail size={20} /><span>support@grayforgedigital.com</span></a>
               </div>
             </nav>

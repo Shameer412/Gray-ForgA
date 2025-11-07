@@ -121,7 +121,7 @@ const ContactUs = () => {
                       <h3 className="font-semibold text-gray-900 mb-1">
                         Phone Number
                       </h3>
-                      <p className="text-gray-600">+92 (344) 469-5057</p>
+                      <p className="text-gray-600">+92 (310) 676-2606</p>
                     </div>
                   </div>
 
